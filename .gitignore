@@ -1,8 +1,12 @@
+components
+include
+
 # PlatformIO
 .pio
 .pioenvs
 .piolibdeps
 *.pyc
+
 
 # IDEs
 .vscode/
