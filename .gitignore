@@ -1,0 +1,21 @@
+# PlatformIO
+.pio
+.pioenvs
+.piolibdeps
+*.pyc
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build Artifacts
+*.o
+*.exe
+*.bin
+*.elf
+*.hex
+
+# Logs
+*.log

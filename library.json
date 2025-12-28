@@ -1,0 +1,19 @@
+{
+  "name": "TextClock",
+  "version": "1.0.0",
+  "description": "Hungarian Text Clock Library",
+  "keywords": "time, clock, hungarian, text",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "authors": [
+    {
+      "name": "Bedő Marci",
+      "email": "bedomarci@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "frameworks": "*",
+  "platforms": "*"
+}
