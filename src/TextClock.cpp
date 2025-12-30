@@ -108,20 +108,59 @@ void TextClock::update(int hour, int minute) {
 
   int h = displayedHourRaw;
 
-  if (h >= config.dawnStart && h < config.morningStart)
-    periodWord = Hajnal;
-  else if (h >= config.morningStart && h < config.forenoonStart)
-    periodWord = Reggel;
-  else if (h >= config.forenoonStart && h < config.noonStart)
-    periodWord = Delelott;
-  else if (h == 12) {
-    periodWord = Del; /* Special context */
-  } else if (h > 12 && h < config.eveningStart)
-    periodWord = Delutan;
-  else if (h >= config.eveningStart && h < config.nightStart)
-    periodWord = Este;
-  else
-    periodWord = Ejjel;
+  // Az eredeti idohoz kepest hatarozzuk meg, hogy melyik napszakba tartozik az
+  // ido.
+  //  Period Selection
+  //  logic based on User Request:
+  //  Midnight 00:00
+  //  Night 00:01 - 03:59
+  //  Dawn 04:00 - 05:59
+  //  Morning 06:00 - 09:59
+  //  Forenoon 10:00 - 11:59
+  //  Noon 12:00
+  //  Afternoon 12:01 - 17:59
+  //  Evening 18:00 - 23:59
+
+  // Note: periodWord is the "Time of Day" prefix (e.g. "Reggel" 6 ora).
+  // Uses 'hour' (actual time) not 'displayedHourRaw' (rounded). user intent
+  // seems to be about the actual time of day. Actually, for "Este 8 ora"
+  // (20:00), we typically use the hour. But if it's 19:55 (Este 8 ora lesz 5
+  // perc mulva), the period is still Este? Or does it switch to "Este" because
+  // 8 is evening? User manual edit changed 'h' (displayedHourRaw) to 'hour'
+  // (actual). Let's Respect User's Edit using 'hour' for range checks, but we
+  // must handle the exact 00:00/12:00 cases carefully.
+
+  if (hour == 0 && minute == 0) {
+    // Midnight point - usually handled by addHourNumber if refPoint is
+    // specific, but here we set periodWord which might be used if we aren't at
+    // the exact point? Actually, if it is EXACTLY 00:00, we typically just say
+    // "Éjfél". But let's set a fallback period.
+    periodWord = Ejfel;
+  } else if (hour == 12 && minute == 0) {
+    periodWord = Del;
+  } else {
+    // Intervals
+    if (hour >= 0 && hour < config.dawnStart) {
+      // Night: 00:00 (covered above) to 03:59
+      // (Since 00:00 is above, this effectively covers 00:01-03:59 if integer
+      // logic holds, but 'hour' is just integer. 00:55 is hour 0.)
+      periodWord = Ejjel;
+    } else if (hour >= config.dawnStart && hour < config.morningStart) {
+      periodWord = Hajnal;
+    } else if (hour >= config.morningStart && hour < config.forenoonStart) {
+      periodWord = Reggel;
+    } else if (hour >= config.forenoonStart && hour < config.noonStart) {
+      periodWord = Delelott;
+    } else if (hour == 12) {
+      // 12:01 - 12:59
+      periodWord = Delutan;
+    } else if (hour > 12 && hour < config.eveningStart) {
+      periodWord = Delutan;
+    } else {
+      // 18:00 - 23:59
+      periodWord = Este;
+    }
+  }
 
   bool nounIsSpecial = false;
   if (h == 12) {

@@ -53,29 +53,14 @@ enum Word {
 
 // Configuration for day periods
 struct DayPeriodConfig {
-  int dawnStart = 4;     // Hajnal
-  int morningStart = 6;  // Reggel
-  int forenoonStart = 9; // Délelőtt
-  int noonStart = 12;    // Dél (Exact 12 is South/Noon but period follows?)
-                         // Usually: Dél (12:00), Délután (12:01-17:59?)
-  int afternoonStart =
-      13; // Délután starts after noon? Or 12:01?
-          // Standard Hungarian: Dél usually covers 12:00-12:xx or just the
-          // point. Let's assume Délután starts > 12:00.
-  int eveningStart = 18; // Este? User list didn't have "Este" (Evening).
-                         // User list: Hajnal, Éjjel, Reggel, Délelőtt, Délután,
-                         // Dél, Éjfél. Missing "Este". User might treat 18-24
-                         // or similar as something else? Ah, "Éjjel" (Night) is
-                         // in the list. "Hajnal" (Dawn). I will map: 00-04:
-                         // Éjjel (Night) 04-06: Hajnal (Dawn) 06-09: Reggel
-                         // (Morning) 09-12: Délelőtt (Forenoon) 12:00: Dél
-                         // (Noon) 12-18?: Délután (Afternoon) - user didn't
-                         // give "Este". Maybe "Éjjel" starts earlier? Or
-                         // "Délután" goes until Night? I will use default:
-                         // Night: 22-04? Or 00-04.
-                         // Let's presume "Éjjel" handles the late hours too if
-                         // "Este" is missing.
-  int nightStart = 22; // Éjjel starts back up?
+  int dawnStart = 4;       // Hajnal: 04:00
+  int morningStart = 6;    // Reggel: 06:00
+  int forenoonStart = 10;  // Délelőtt: 10:00
+  int noonStart = 12;      // Dél: 12:00
+  int afterNoonStart = 12; // Délután: > 12:00
+  int eveningStart = 18;   // Este: 18:00
+  int nightStart = 0;      // Éjjel: 00:00 - 04:00 (and 00:00 point)
+                           // Note: Éjfél is exact 00:00.
 };
 
 class TextClock {

@@ -14,10 +14,18 @@ core_src_dir = os.path.abspath(join(project_dir, "..", "..", "src"))
 target_lib_dir = join(project_dir, "lib", "ProjectCore")
 
 files_to_sync = [
+    "Types.h",
+    "IDrawer.h",
     "TextClock.h",
     "TextClock.cpp",
     "DisplayManager.h",
-    "DisplayManager.cpp"
+    "DisplayManager.cpp",
+    "ClockDrawer.h",
+    "ClockDrawer.cpp",
+    "RingDrawer.h",
+    "RingDrawer.cpp",
+    "Renderer.h",
+    "Renderer.cpp"
 ]
 
 def sync_files():

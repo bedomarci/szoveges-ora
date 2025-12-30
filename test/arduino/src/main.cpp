@@ -5,19 +5,23 @@
 #include <vector>
 
 // Include project headers
-#include "DisplayManager.h"
-#include "TextClock.h"
+#include "ClockDrawer.h"
+#include "Renderer.h"
+#include "RingDrawer.h"
 
 // Hardware Config
 #define LED_PIN 2
 #define LED_TYPE WS2812B
 #define COLOR_ORDER GRB
 #define NUM_LEDS 256 // 16x16 matrix
-#define BRIGHTNESS 10
+#define BRIGHTNESS 30
 
 CRGB leds[NUM_LEDS];
-TextClock textClock;
-DisplayManager displayManager;
+
+// Architecture Components
+Renderer renderer;
+ClockDrawer clockDrawer;
+RingDrawer ringDrawer;
 
 typedef CommandParser<> MyCommandParser;
 MyCommandParser parser;
@@ -26,12 +30,13 @@ MyCommandParser parser;
 Scheduler runner;
 
 // Forward declarations
-void clockCallback();
+void rendererCallback();
 void serialCallback();
 void sweepCallback();
 
 // Tasks
-Task tClock(1000, TASK_FOREVER, &clockCallback, &runner, false);
+Task tRenderer(50, TASK_FOREVER, &rendererCallback, &runner,
+               false); // Disabled by default until on?
 Task tSerial(50, TASK_FOREVER, &serialCallback, &runner, true);
 Task tSweep(30, TASK_FOREVER, &sweepCallback, &runner, false);
 
@@ -47,8 +52,17 @@ void setTime(MyCommandParser::Argument *args, char *response) {
     if (h >= 0 && h <= 23 && m >= 0 && m <= 59) {
       g_hour = h;
       g_minute = m;
+
+      // Update Drawers
+      clockDrawer.setTime(g_hour, g_minute);
+      // Maybe set ring angle based on minute?
+      // Minute hand: 360 * minute / 60
+      float angle = 360.0f * m / 60.0f;
+      ringDrawer.setAngle(angle);
+
       tSweep.disable();
-      tClock.enable();
+      tRenderer.enable(); // Enable renderer
+
       sprintf(response, "Time set to %02d:%02d", g_hour, g_minute);
       return;
     }
@@ -56,14 +70,54 @@ void setTime(MyCommandParser::Argument *args, char *response) {
   sprintf(response, "Invalid format. Use HHMM.");
 }
 
+// Ring Demo
+void ringDemoCallback();
+Task tRingDemo(50, TASK_FOREVER, &ringDemoCallback, &runner, false);
+
+// ... (other tasks)
+
+void setRing(MyCommandParser::Argument *args, char *response) {
+  // Command: ring [angle] or [on/off]
+  String arg = args[0].asString;
+
+  if (arg.equalsIgnoreCase("on")) {
+    tRingDemo.enable();
+    ringDrawer.enable(true); // Ensure ring is visible
+    // Keep clock enabled for composition
+    sprintf(response, "Ring demo ON");
+  } else if (arg.equalsIgnoreCase("off")) {
+    tRingDemo.disable();
+    ringDrawer.enable(false); // Hide ring
+    sprintf(response, "Ring demo OFF");
+  } else if (arg.length() > 0) {
+    tRingDemo.disable(); // Manual control overrides demo
+    float angle = arg.toFloat();
+    ringDrawer.setAngle(angle);
+    sprintf(response, "Ring angle set to %.1f", angle);
+  } else {
+    sprintf(response, "Usage: ring <angle> | on | off");
+  }
+
+  tSweep.disable();
+  tRenderer.enable();
+}
+
+void ringDemoCallback() {
+  // 1 lap in 60 seconds (60000ms)
+  // angle = (millis % 60000) / 60000.0 * 360.0
+  uint32_t ms = millis();
+  float angle = (float)(ms % 60000) / 60000.0f * 360.0f;
+  ringDrawer.setAngle(angle);
+}
+
 void startSweep(MyCommandParser::Argument *args, char *response) {
-  tClock.disable();
+  tRenderer.disable(); // Disable renderer so sweep can take over
   tSweep.enable();
   sprintf(response, "Starting LED sweep test...");
 }
 
 void turnOff(MyCommandParser::Argument *args, char *response) {
-  tClock.disable();
+  tRenderer.disable();
   tSweep.disable();
   FastLED.clear();
   FastLED.show();
@@ -73,14 +127,15 @@ void turnOff(MyCommandParser::Argument *args, char *response) {
 void setup() {
   Serial.begin(115200);
   delay(1000);
-  Serial.println("\nTextClock Arduino Test (TaskScheduler)");
-  Serial.println("Commands: HHMM, t HHMM, sweep, off");
+  Serial.println("\nTextClock Arduino (New Arch)");
+  Serial.println("Commands: HHMM, t HHMM, sweep, off, ring <angle>");
 
   // Register commands
   parser.registerCommand("t", "s", setTime);
   parser.registerCommand("time", "s", setTime);
   parser.registerCommand("sweep", "", startSweep);
   parser.registerCommand("off", "", turnOff);
+  parser.registerCommand("ring", "s", setRing);
 
   // Initialize FastLED
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS)
@@ -88,6 +143,17 @@ void setup() {
   FastLED.setBrightness(BRIGHTNESS);
   FastLED.clear();
   FastLED.show();
+
+  // Setup Architecture
+  clockDrawer.setColor({0, 255, 0}); // Green
+  clockDrawer.setTime(g_hour, g_minute);
+
+  ringDrawer.setColors({255, 0, 0}, {0, 0, 0}); // Red FG
+  ringDrawer.setAngle(0);
+  ringDrawer.setBlur(0.6f);
+
+  renderer.addDrawer(&clockDrawer);
+  renderer.addDrawer(&ringDrawer);
 }
 
 void loop() { runner.execute(); }
@@ -113,8 +179,13 @@ void serialCallback() {
           if (h >= 0 && h <= 23 && m >= 0 && m <= 59) {
             g_hour = h;
             g_minute = m;
+
+            clockDrawer.setTime(g_hour, g_minute);
+            // float angle = 360.0f * m / 60.0f;
+            // ringDrawer.setAngle(angle);
+
             tSweep.disable();
-            tClock.enable();
+            tRenderer.enable();
             Serial.printf("Shorthand update: %02d:%02d\n", g_hour, g_minute);
           }
         }
@@ -126,21 +197,10 @@ void serialCallback() {
   }
 }
 
-void clockCallback() {
-  textClock.update(g_hour, g_minute);
-  int count = 0;
-  const Word *words = textClock.getWords(count);
-
-  std::vector<uint16_t> indices;
-  displayManager.getLEDIndices(words, count, indices);
-
-  FastLED.clear();
-  for (uint16_t idx : indices) {
-    if (idx < NUM_LEDS) {
-      leds[idx] = CRGB::Orange;
-    }
-  }
-  FastLED.show();
+void rendererCallback() {
+  uint32_t now = millis();
+  renderer.update(now);
+  renderer.render();
 }
 
 void sweepCallback() {
@@ -162,7 +222,7 @@ void sweepCallback() {
       filling = true;
       step = 0;
       tSweep.disable();
-      tClock.enable();
+      // Don't auto-enable renderer here, stay off until command?
       Serial.println("Sweep complete.");
     }
   }
