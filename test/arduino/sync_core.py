@@ -18,8 +18,6 @@ files_to_sync = [
     "IDrawer.h",
     "TextClock.h",
     "TextClock.cpp",
-    "DisplayManager.h",
-    "DisplayManager.cpp",
     "ClockDrawer.h",
     "ClockDrawer.cpp",
     "RingDrawer.h",
