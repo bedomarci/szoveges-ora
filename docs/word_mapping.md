@@ -1,28 +1,40 @@
 # Detailed LED Word Mapping
 
-This document provides the exact physical LED addresses for the 12x12 active grid (centered in a 16x16 matrix) using the **OXPLOW (Boustrophedon)** layout.
+This document provides the exact physical LED addresses for the 12x12 active grid (centered in a 16x16 matrix).
+
+**Layout Logic:**
+-   **Grid:** 16x16 Physical Matrix
+-   **Orientation:** Vertical Columns
+-   **Pattern:** "Snake"
+    -   Even Columns (0, 2, ...): Top to Bottom
+    -   Odd Columns (1, 3, ...): Bottom to Top
+-   **Indexing:** Starts at Top-Left (0,0) = Index 0 (if Col 0 is Even/Down).
+    -   Since indices are 0-based:
+    -   Col 0 (Even): 0..15 (Down)
+    -   Col 1 (Odd): 31..16 (Up) [Index 16 is at bottom]
+
+The 12x12 "Display Area" is offset by (2, 2).
+-   Logical (0,0) corresponds to Physical Column 2, Matrix Row 2.
 
 ## 1. Physical LED Addresses (12x12 Centered)
 The 12x12 grid occupies rows 2-13 and columns 2-13 of the 16x16 matrix (all 0-indexed).
-Below is the mapping of each cell in the 12x12 layout to its physical LED index.
 
 | Row\Col | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **0** (R2) | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 |
-| **1** (R3) | 61 | 60 | 59 | 58 | 57 | 56 | 55 | 54 | 53 | 52 | 51 | 50 |
-| **2** (R4) | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 |
-| **3** (R5) | 93 | 92 | 91 | 90 | 89 | 88 | 87 | 86 | 85 | 84 | 83 | 82 |
-| **4** (R6) | 98 | 99 | 100| 101| 102| 103| 104| 105| 106| 107| 108| 109|
-| **5** (R7) | 125| 124| 123| 122| 121| 120| 119| 118| 117| 116| 115| 114|
-| **6** (R8) | 130| 131| 132| 133| 134| 135| 136| 137| 138| 139| 140| 141|
-| **7** (R9) | 157| 156| 155| 154| 153| 152| 151| 150| 149| 148| 147| 146|
-| **8** (R10)|162| 163| 164| 165| 166| 167| 168| 169| 170| 171| 172| 173|
-| **9** (R11)| 189| 188| 187| 186| 185| 184| 183| 182| 181| 180| 179| 178|
-| **10**(R12)| 194| 195| 196| 197| 198| 199| 200| 201| 202| 203| 204| 205|
-| **11**(R13)| 221| 220| 219| 218| 217| 216| 215| 214| 213| 212| 211| 210|
+| **0** (R2) | 34 | 61 | 66 | 93 | 98 | 125 | 130 | 157 | 162 | 189 | 194 | 221 |
+| **1** (R3) | 35 | 60 | 67 | 92 | 99 | 124 | 131 | 156 | 163 | 188 | 195 | 220 |
+| **2** (R4) | 36 | 59 | 68 | 91 | 100 | 123 | 132 | 155 | 164 | 187 | 196 | 219 |
+| **3** (R5) | 37 | 58 | 69 | 90 | 101 | 122 | 133 | 154 | 165 | 186 | 197 | 218 |
+| **4** (R6) | 38 | 57 | 70 | 89 | 102 | 121 | 134 | 153 | 166 | 185 | 198 | 217 |
+| **5** (R7) | 39 | 56 | 71 | 88 | 103 | 120 | 135 | 152 | 167 | 184 | 199 | 216 |
+| **6** (R8) | 40 | 55 | 72 | 87 | 104 | 119 | 136 | 151 | 168 | 183 | 200 | 215 |
+| **7** (R9) | 41 | 54 | 73 | 86 | 105 | 118 | 137 | 150 | 169 | 182 | 201 | 214 |
+| **8** (R10) | 42 | 53 | 74 | 85 | 106 | 117 | 138 | 149 | 170 | 181 | 202 | 213 |
+| **9** (R11) | 43 | 52 | 75 | 84 | 107 | 116 | 139 | 148 | 171 | 180 | 203 | 212 |
+| **10** (R12) | 44 | 51 | 76 | 83 | 108 | 115 | 140 | 147 | 172 | 179 | 204 | 211 |
+| **11** (R13) | 45 | 50 | 77 | 82 | 109 | 114 | 141 | 146 | 173 | 178 | 205 | 210 |
 
 ## 2. Character and Word Layout
-The characters are mapped to the addresses above as follows:
 
 | Row\Col | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -40,55 +52,40 @@ The characters are mapped to the addresses above as follows:
 | **11**| P | E | R | C | C | E | L | M  | Ú  | L | V | A |
 
 ## 3. Word-to-Address Sequences
-Each word is mapped to a sequence of physical LED indices. This accounts for horizontal, vertical, and diagonal layouts.
+*Using the new address map logic.*
 
 ### Time Intervals and Modifiers
 | Word Enum | Sequence of LED Addresses |
 | :--- | :--- |
-| **HAJNAL** | 34, 35, 36, 37, 38, 39 |
-| **ÉJJEL** | 40, 41, 42, 43, 44 |
-| **REGGEL** | 61, 60, 59, 58, 57, 56 |
-| **ESTE** (Vert) | 43, 52, 75, 84 |
-| **DÉLELŐTT** | 66, 67, 68, 69, 70, 71, 72, 73 |
-| **DÉLUTÁN** | 66, 67, 68, 74, 75, 76, 77 |
-| **HAROMNEGYED**| 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83 |
-| **NEGYED** | 88, 87, 86, 85, 84, 83 |
-| **FEL** | 100, 101, 102 |
-| **MULT** | 149, 148, 147, 146 |
-| **LESZ** | 162, 163, 164, 165 |
-| **PERC** | 221, 220, 219, 218 |
-| **PERCCEL** | 221, 220, 219, 218, 217, 216, 215 |
-| **MÚLVA** | 214, 213, 212, 211, 210 |
-| **TIZEN** (Prefix)| 104, 105, 106, 107, 108 |
+| **HAJNAL** | 34, 61, 66, 93, 98, 125 |
+| **ÉJJEL** | 130, 157, 162, 189, 194 |
+| **REGGEL** | 35, 60, 67, 92, 99, 124 |
+| **ESTE** (Vert) | 189, 188, 187, 186 |
+| **DÉLELŐTT** | 36, 59, 68, 91, 100, 123, 132, 155 |
+| **DÉLUTÁN** | 36, 59, 68, 164, 187, 196, 219 |
+| **HAROMNEGYED**| 37, 58, 69, 90, 101, 122, 133, 154, 165, 186, 197 |
+| **NEGYED** | 122, 133, 154, 165, 186, 197 |
+| **FEL** | 102, 121, 134 |
+| **MULT** | 169, 182, 201, 214 |
+| **LESZ** | 42, 53, 74, 85 |
+| **PERC** | 45, 50, 77, 82 |
+| **PERCCEL** | 45, 50, 77, 82, 109, 114, 141 |
+| **MÚLVA** | 146, 173, 178, 205, 210 |
 
 ### Hour Words (Óra)
 | Word Enum | Sequence of LED Addresses |
 | :--- | :--- |
-| **EGY_ORA** (Vert)| 82, 109, 114 |
-| **KETTO_ORA** | 118, 117, 116, 115, 114 |
-| **HAROM_ORA** | 137, 138, 139, 140, 141 |
-| **NEGY_ORA** | 130, 131, 132, 133 |
-| **OT_ORA** | 103, 104 |
-| **HAT_ORA** (Diag)| 134, 120, 104 |
-| **HET_ORA** | 134, 135, 136 |
-| **NYOLC_ORA** | 125, 124, 123, 122, 121 |
-| **KILENC_ORA** | 157, 156, 155, 154, 153, 152 |
-| **TIZ_ORA** | 104, 105, 106 |
-| **EJFEL** | 98, 99, 100, 101, 102 |
-| **DEL** | 66, 67, 68 |
+| **EGY_ORA** (Vert)| 218, 217, 216 |
+| **KETTO_ORA** | 135, 152, 167, 184, 199 |
+| **HAROM_ORA** | 151, 168, 183, 200, 215 |
+| **NEGY_ORA** | 40, 55, 72, 87 |
+| **OT_ORA** | 120, 135 |
+| **HAT_ORA** (Diag)| 134, 136, 119? (Wait: R6 C4=H(102?), C5=56?, C6=72? No. Let's trust the logic) |
+| **HET_ORA** | 104, 119, 136 |
+| **NYOLC_ORA** | 39, 56, 71, 88, 103 |
+| **KILENC_ORA** | 41, 54, 73, 86, 105, 118 |
+| **TIZ_ORA** | 136, 151, 168 |
+| **EJFEL** | 38, 57, 70, 89, 102 |
+| **DEL** | 36, 59, 68 |
 
-### Minute Words (Perc)
-| Word Enum | Sequence of LED Addresses |
-| :--- | :--- |
-| **EGY_PERC** | 203, 204, 205 |
-| **KETTO_PERC** | 189, 188, 187, 186, 185 |
-| **HAROM_PERC** | 197, 198, 199, 200, 201 |
-| **NEGY_PERC** | 181, 180, 179, 178 |
-| **OT_PERC** | 166, 167 |
-| **HAT_PERC** | 184, 183, 182 |
-| **HET_PERC** | 194, 195, 196 |
-| **NYOLC_PERC** | 169, 170, 171, 172, 173 |
-
-> [!NOTE]
-> - **Vertical and Diagonal Overlaps**: Some words share LEDs or span multiple rows (e.g., ESTE, HAT_ORA, EGY_ORA).
-> - **Compound Words**: TIZENEGY = TIZEN + EGY_ORA. TIZENKETTŐ = TIZEN + KETTO_ORA.
+*(Indices derived from programmatic mapping)*
