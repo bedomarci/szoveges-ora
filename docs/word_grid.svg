@@ -1,0 +1,356 @@
+<svg width="12cm" height="12cm" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .grid-rect {
+      fill: white;
+      stroke: black;
+      stroke-width: 0.5;
+    }
+    .grid-text {
+      font-family: Arial, sans-serif;
+      font-size: 6px;
+      text-anchor: middle;
+      dominant-baseline: central;
+      fill: black;
+    }
+    .row-label, .col-label {
+      font-size: 3px;
+      fill: #888;
+    }
+  </style>
+
+  <!-- Row 0 -->
+  <g transform="translate(0, 0)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">H</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">A</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">J</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">N</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">A</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">L</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">É</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">J</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">J</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">E</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">L</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">Ő</text>
+  </g>
+
+  <!-- Row 1 -->
+  <g transform="translate(0, 10)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">R</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">E</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">G</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">G</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">E</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">L</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">B</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">R</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">E</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">S</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">Z</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">T</text>
+  </g>
+
+  <!-- Row 2 -->
+  <g transform="translate(0, 20)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">D</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">É</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">L</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">E</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">L</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">Ő</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">T</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">T</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">U</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">T</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">Á</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">N</text>
+  </g>
+
+  <!-- Row 3 -->
+  <g transform="translate(0, 30)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">H</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">Á</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">R</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">O</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">M</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">N</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">E</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">G</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">Y</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">E</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">D</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">E</text>
+  </g>
+
+  <!-- Row 4 -->
+  <g transform="translate(0, 40)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">É</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">J</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">F</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">É</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">L</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">Ö</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">T</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">I</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">Z</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">E</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">N</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">G</text>
+  </g>
+
+  <!-- Row 5 -->
+  <g transform="translate(0, 50)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">N</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">Y</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">O</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">L</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">C</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">A</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">K</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">E</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">T</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">T</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">Ő</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">Y</text>
+  </g>
+
+  <!-- Row 6 -->
+  <g transform="translate(0, 60)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">N</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">É</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">G</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">Y</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">H</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">É</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">T</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">H</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">Á</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">R</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">O</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">M</text>
+  </g>
+
+  <!-- Row 7 -->
+  <g transform="translate(0, 70)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">K</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">I</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">L</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">E</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">N</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">C</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">Í</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">?</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">M</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">Ú</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">L</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">T</text>
+  </g>
+
+  <!-- Row 8 -->
+  <g transform="translate(0, 80)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">L</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">E</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">S</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">Z</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">Ö</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">T</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">Z</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">N</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">Y</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">O</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">L</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">C</text>
+  </g>
+
+  <!-- Row 9 -->
+  <g transform="translate(0, 90)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">K</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">E</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">T</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">T</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">Ő</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">H</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">A</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">T</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">N</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">É</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">G</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">Y</text>
+  </g>
+
+  <!-- Row 10 -->
+  <g transform="translate(0, 100)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">H</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">É</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">T</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">H</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">Á</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">R</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">O</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">M</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">?</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">E</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">G</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">Y</text>
+  </g>
+
+  <!-- Row 11 -->
+  <g transform="translate(0, 110)">
+    <rect x="0" y="0" width="10" height="10" class="grid-rect" />
+    <text x="5" y="5" class="grid-text">P</text>
+    <rect x="10" y="0" width="10" height="10" class="grid-rect" />
+    <text x="15" y="5" class="grid-text">E</text>
+    <rect x="20" y="0" width="10" height="10" class="grid-rect" />
+    <text x="25" y="5" class="grid-text">R</text>
+    <rect x="30" y="0" width="10" height="10" class="grid-rect" />
+    <text x="35" y="5" class="grid-text">C</text>
+    <rect x="40" y="0" width="10" height="10" class="grid-rect" />
+    <text x="45" y="5" class="grid-text">C</text>
+    <rect x="50" y="0" width="10" height="10" class="grid-rect" />
+    <text x="55" y="5" class="grid-text">E</text>
+    <rect x="60" y="0" width="10" height="10" class="grid-rect" />
+    <text x="65" y="5" class="grid-text">L</text>
+    <rect x="70" y="0" width="10" height="10" class="grid-rect" />
+    <text x="75" y="5" class="grid-text">M</text>
+    <rect x="80" y="0" width="10" height="10" class="grid-rect" />
+    <text x="85" y="5" class="grid-text">Ú</text>
+    <rect x="90" y="0" width="10" height="10" class="grid-rect" />
+    <text x="95" y="5" class="grid-text">L</text>
+    <rect x="100" y="0" width="10" height="10" class="grid-rect" />
+    <text x="105" y="5" class="grid-text">V</text>
+    <rect x="110" y="0" width="10" height="10" class="grid-rect" />
+    <text x="115" y="5" class="grid-text">A</text>
+  </g>
+</svg>
