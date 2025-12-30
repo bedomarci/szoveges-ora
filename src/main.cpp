@@ -1,93 +1,47 @@
-#include "DisplayManager.h"
-#include "LedDriver.h"
-#include "TextClock.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "tuya_config.h"
+#include "tal_api.h"
+#include "tal_cli.h"
+#include "tkl_output.h"
+
+// Standard Includes
 #include <stdio.h>
 #include <sys/time.h>
 #include <time.h>
 
+// User Includes
+#include "DisplayManager.h"
+#include "LedDriver.h"
+#include "TextClock.h"
+#include "tuya_config.h"
 
-#include "cJSON.h"
-#include "tuya_cloud_com_defs.h"
-#include "tuya_iot.h"
+// Define helper macros to map legacy ESP logging to Tuya TAL logging
+#define TAG "app_main"
+#define ESP_LOGI(tag, fmt, ...) PR_DEBUG("[%s] " fmt "\r\n", tag, ##__VA_ARGS__)
+#define ESP_LOGE(tag, fmt, ...) PR_ERR("[%s] " fmt "\r\n", tag, ##__VA_ARGS__)
 
+// Map FreeRTOS delays to TAL
+#define pdMS_TO_TICKS(ms) ms
+#define vTaskDelay(t) tal_system_sleep(t)
 
-static const char *TAG = "app_main";
-
-// Tuya Objects
-tuya_iot_client_t client;
-tuya_iot_license_t license = {
-    .uuid = TUYA_OPENSDK_UUID,
-    .authkey = TUYA_OPENSDK_AUTHKEY,
-};
+// Tuya Thread Handle
+static THREAD_HANDLE ty_app_thread = NULL;
 
 // Application State
 LedDriver ledDriver;
 TextClock clockObj;
 DisplayManager displayManager;
 
-// Color/Brightness Defaults
+// Color Defaults
 uint8_t g_red = 10;
 uint8_t g_green = 10;
 uint8_t g_blue = 10;
-
-// DP Definitions (Customize based on Tuya IoT Platform)
-#define DPID_SWITCH 1
-#define DPID_COLOR 2  // Hex string or similar? Simplified for now.
-#define DPID_BRIGHT 3 // Value
-
-void user_event_handler_on(tuya_iot_client_t *client, tuya_event_msg_t *event) {
-  ESP_LOGI(TAG, "Tuya Event ID:%d", event->id);
-  switch (event->id) {
-  case TUYA_EVENT_BIND_START:
-    ESP_LOGI(TAG, "Bind Start");
-    break;
-  case TUYA_EVENT_MQTT_CONNECTED:
-    ESP_LOGI(TAG, "MQTT Connected");
-    break;
-  case TUYA_EVENT_TIMESTAMP_SYNC:
-    ESP_LOGI(TAG, "Sync timestamp:%d", event->value.asInteger);
-    // Set System Time
-    struct timeval tv;
-    tv.tv_sec = event->value.asInteger;
-    tv.tv_usec = 0;
-    settimeofday(&tv, NULL);
-    break;
-  case TUYA_EVENT_DP_RECEIVE_OBJ: {
-    dp_obj_recv_t *dpobj = event->value.dpobj;
-    for (int i = 0; i < dpobj->dpscnt; i++) {
-      dp_obj_t *dp = dpobj->dps + i;
-      ESP_LOGI(TAG, "DP ID:%d Type:%d", dp->id, dp->type);
-      switch (dp->id) {
-      case DPID_SWITCH:
-        // Handle Switch
-        break;
-      case DPID_BRIGHT:
-        if (dp->type == PROP_VALUE) {
-          // Scale brightness 0-255 or 0-100
-          float scale = dp->value.dp_value / 100.0f;
-          // Simple mock scaling of global color
-          // In real app, store base color and brightness separate
-        }
-        break;
-      }
-    }
-    // Report state back (Shadow)
-    tuya_iot_dp_obj_report(client, dpobj->devid, dpobj->dps, dpobj->dpscnt, 0);
-  } break;
-  default:
-    break;
-  }
-}
 
 static void update_clock_display() {
   // 1. Get Real Time
   time_t now;
   struct tm timeinfo;
   time(&now);
+
+  // Attempt to use standard localtime
   localtime_r(&now, &timeinfo);
 
   int hour = timeinfo.tm_hour;
@@ -111,36 +65,41 @@ static void update_clock_display() {
   ledDriver.show();
 }
 
-extern "C" void app_main(void) {
-  ESP_LOGI(TAG, "Starting TextClock Application...");
+static void user_main(void) {
+  // Initialize TAL Logging
+  tal_log_init(TAL_LOG_LEVEL_DEBUG, 1024, (TAL_LOG_OUTPUT_CB)tkl_log_output);
+  PR_DEBUG("Starting TextClock Application...\r\n");
 
   // Initialize LED Strip
   if (!ledDriver.init()) {
-    ESP_LOGE(TAG, "LED Driver Init Failed!");
+    PR_DEBUG("LED Driver Init Failed!\r\n");
   } else {
-    ESP_LOGI(TAG, "LED Driver Initialized");
+    PR_DEBUG("LED Driver Initialized\r\n");
   }
 
-  // Initialize Tuya
-  tuya_iot_config_t config = {
-      .software_ver = "1.0.0",
-      .productkey = TUYA_PRODUCT_ID,
-      .uuid = license.uuid,
-      .authkey = license.authkey,
-      .event_handler = user_event_handler_on,
-  };
-
-  int rt = tuya_iot_init(&client, &config);
-  if (rt != OPRT_OK) {
-    ESP_LOGE(TAG, "Tuya Init Failed: %d", rt);
-  } else {
-    ESP_LOGI(TAG, "Tuya Init Success");
-    tuya_iot_start(&client);
-  }
-
+  // Main Loop
+  int cnt = 0;
   while (1) {
-    tuya_iot_yield(&client);
+    // Run Application Logic
     update_clock_display();
-    vTaskDelay(pdMS_TO_TICKS(100)); // 10Hz update
+
+    PR_DEBUG("Heartbeat %d\r\n", cnt++);
+
+    tal_system_sleep(100); // 10Hz update
   }
+}
+
+static void tuya_app_thread(void *arg) {
+  user_main();
+  tal_thread_delete(ty_app_thread);
+  ty_app_thread = NULL;
+}
+
+extern "C" {
+void tuya_app_main(void) {
+  static char thrd_name[] = "tuya_app_main";
+  THREAD_CFG_T thrd_param = {4096, 4, thrd_name};
+  tal_thread_create_and_start(&ty_app_thread, NULL, NULL, tuya_app_thread, NULL,
+                              &thrd_param);
+}
 }

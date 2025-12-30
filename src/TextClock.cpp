@@ -2,7 +2,6 @@
 #include <cctype>
 #include <iostream> /* For debug if needed */
 
-
 TextClock::TextClock() : wordCount(0) {
   // Default config values are already in struct
 }
@@ -144,9 +143,11 @@ void TextClock::update(int hour, int minute) {
     hourNum = 12;
 
   auto addHourNumber = [&]() {
-    if (h == 12)
+    // Only use DEL/EJFEL if referencing the exact hour (RefPoint 0 or 4)
+    // For fractional times (Negyed, Fel, Haromnegyed), use Tizenketto (12).
+    if ((refPoint == 0 || refPoint == 4) && h == 12)
       addWord(Del);
-    else if (h == 0)
+    else if ((refPoint == 0 || refPoint == 4) && h == 0)
       addWord(Ejfel);
     else {
       // Map number
