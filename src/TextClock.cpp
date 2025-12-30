@@ -1,5 +1,7 @@
 #include "TextClock.h"
+#include <cctype>
 #include <iostream> /* For debug if needed */
+
 
 TextClock::TextClock() : wordCount(0) {
   // Default config values are already in struct
